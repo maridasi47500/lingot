@@ -24,3 +24,6 @@ Ready to get started? Follow these simple steps:
 1. **Clone the repository:**
    ```sh
    git clone https://github.com/your-username/ViolinTuner.git
+g++ -o violintuner violintuner.cpp -lfftw3 -lportaudio
+./violintuner
+

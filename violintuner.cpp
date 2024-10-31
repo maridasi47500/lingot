@@ -17,10 +17,19 @@ std::string determineColor(double frequency, double targetFrequency) {
     if (diff < TOLERANCE) {
         return "Green";  // Perfectly in tune
     } else if (diff < 3.0) {
-        return "Yellow"; // Almost in tune
+        if (frequency < targetFrequency) {
+            return "Yellow (bémol)";  // Almost in tune, too low
+        } else {
+            return "Yellow (diese)";  // Almost in tune, too high
+        }
     } else {
-        return "Red";    // Out of tune
+        if (frequency < targetFrequency) {
+            return "Red (bémol)";  // Too low
+        } else {
+            return "Red (diese)";  // Too high
+        }
     }
+
 }
 
 // Function to calculate the dominant frequency using FFTW
@@ -75,7 +84,7 @@ int main() {
     int sampleRate = 44100; // Sample rate
 
     // Dummy loop to capture and analyze audio
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < 100000000; ++i) {
         Pa_ReadStream(stream, buffer, 256);
         double detectedFrequency = calculateFrequency(buffer, 256, sampleRate); // Analyze the input frequency
 
